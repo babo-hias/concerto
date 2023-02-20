@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<script>
+        $(document).ready( function () {
+            $('#delete_table').DataTable({
+                scrollY: '47vh',
+                scrollCollapse: true,
+                paging:false,
+                order: [[6, 'desc']],
+            });
+        } );
+    </script>
+
+<table id="delete_table" class="table table-hover table-sm">
+<thead>
+    <th class="table-dark">Kategorie</th>
+<th class="table-dark">Genre</th>
+<th class="table-dark">Artist</th>
+<th class="table-dark">Ort</th>
+<th class="table-dark">Location</th>
+<th class="table-dark">Kosten</th>
+<th class="table-dark">Jahr</th>
+<th class="table-dark">Löschen</th>
+</thead>
+
+    <tbody>
+{% for x in shows %}
+
+    <tr class="table-light">
+    <td style="vertical-align:middle;">{{ x.kategorie }}</td>
+    <td style="vertical-align:middle;">{{ x.genre }}</td>
+    <td style="vertical-align:middle;">{{ x.artist }}</td>
+    <td style="vertical-align:middle;">{{ x.ort }}</td>
+    <td style="vertical-align:middle;">{{ x.location }}</td>
+    <td style="vertical-align:middle;">{{ x.kosten }}</td>
+    <td style="vertical-align:middle;">{{ x.jahr }}</td>
+    <td style="vertical-align:middle;"><a class="btn btn-danger" href="deleted/{{ x.id }}">delete</a></td>
+</tr>
+
+{% endfor %}
+    </tbody>
+</table>
+
+
+{% else %}
+<div style="margin:20px;">
+<p>You are not logged in</p>
+  <a class="btn btn-success" href="{% url 'login' %}">Log In</a>
+</div>
+    {% endif %}
+
+{% endblock %}

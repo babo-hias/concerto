@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div style="margin:15px;">
+<h2>Add shows as .txt-file</h2>
+
+<form action="addrecords_txt/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+</form>
+
+    </div>
+
+{% else %}
+<div style="margin:20px;">
+<p>You are not logged in</p>
+  <a class="btn btn-success" href="{% url 'login' %}">Log In</a>
+</div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<script>
+        $(document).ready( function () {
+            $('#show_table').DataTable({
+                scrollY: '47vh',
+                scrollCollapse: true,
+                paging:false,
+                order: [[6, 'desc']],
+            });
+        } );
+    </script>
+
+<table id="show_table" class="table table-hover table-sm">
+                <thead>
+                    {% for x in header %}
+                    <th class="table-dark">{{ x }}</th>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                    {% for x in shows %}
+                    <tr class="table-light">
+                        <td>{{ x.kategorie }}</td>
+                        <td>{{ x.genre }}</td>
+                        <td>{{ x.artist }}</td>
+                        <td>{{ x.ort }}</td>
+                        <td>{{ x.location }}</td>
+                        <td>{{ x.kosten }}</td>
+                        <td>{{ x.jahr }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="add/">Add single show</a>
+            <a class="btn btn-primary" href="add_txt/">Add shows as .txt-file</a>
+            <a class="btn btn-danger" href="delete/">Delete shows</a>
+{% else %}
+<div style="margin:20px;">
+<p>You are not logged in</p>
+  <a class="btn btn-success" href="{% url 'login' %}">Log In</a>
+</div>
+    {% endif %}
+
+{% endblock %}

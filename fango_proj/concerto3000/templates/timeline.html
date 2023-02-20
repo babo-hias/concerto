@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div style="height: 300px; margin:20px;">
+        <canvas id="myChart"></canvas>
+<script>
+  const labels = [{% for item in year_labels %}"{{ item }}",{% endfor %}];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '# shows per year',
+      backgroundColor: 'rgb(235, 235, 0)',
+      borderColor: 'rgb(235, 235, 0)',
+      borderWidth: 5,
+      data: [{% for item in year_data %}{{ item }},{% endfor %}],
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    plugins: [ChartDataLabels],
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                ticks: { color: 'black'}
+            },
+            y: {
+                ticks: { color: 'black', beginAtZero: true }
+            }
+        },
+
+        plugins: {
+            legend: {
+                display: false
+            },
+            datalabels: {
+                anchor: 'end',
+                align: 'end',
+                offset: 5,
+                color: 'black',
+            },
+        }
+    }
+  };
+</script>
+    <script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+
+    </div>
+{% else %}
+<div style="margin:20px;">
+<p>You are not logged in</p>
+  <a class="btn btn-success" href="{% url 'login' %}">Log In</a>
+</div>
+    {% endif %}
+{% endblock %}

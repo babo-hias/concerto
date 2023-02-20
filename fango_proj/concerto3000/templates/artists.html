@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div style="height: 300px; overflow-y: auto; margin-top:20px;">
+    <div style="height: 8000px;">
+            <canvas id="artist_chart"></canvas>
+    <script>
+  const labels = [{% for item in artists_labels %}"{{ item }}",{% endfor %}];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '# shows',
+      backgroundColor: 'rgb(235, 235, 0)',
+      borderColor: 'rgb(235, 235, 0)',
+      data: [{% for item in artists_data %}{{ item }},{% endfor %}],
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    plugins: [ChartDataLabels],
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        scales: {
+            y: {
+                ticks: { color: 'black', beginAtZero: true }
+            }
+        },
+
+        plugins: {
+            legend: {
+                display: false
+            },
+            datalabels: {
+                anchor: 'center',
+                align: 'end',
+                offset: 5,
+                color: 'black',
+            },
+        }
+    }
+  };
+
+</script>
+    <script>
+  const artist_chart = new Chart(
+    document.getElementById('artist_chart'),
+    config
+  );
+</script>
+
+
+
+        </div>
+    </div>
+
+{% else %}
+<div style="margin:20px;">
+<p>You are not logged in</p>
+  <a class="btn btn-success" href="{% url 'login' %}">Log In</a>
+</div>
+    {% endif %}
+{% endblock %}

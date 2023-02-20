@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success" type="submit">Log In</button>
+  </form>
+-->
+
+<form method="post">
+  {% csrf_token %}
+
+
+<table style="margin: 10px;">
+  <tr>
+    <td style="padding:10px;">
+      username
+    </td>
+    <td style="padding:10px;">
+      <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" required="">
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:10px;">
+      password
+    </td>
+    <td style="padding:10px; vertical-align: center;">
+      <input type="password" name="password" autocomplete="current-password" required="">
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <button class="btn btn-success" type="submit" style="margin: 10px;">Log In</button>
+    </td>
+  </tr>
+</table>
+
+
+
+</form>
+
+{% endblock %}
+
