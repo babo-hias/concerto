@@ -6,18 +6,22 @@
 <script>
         $(document).ready( function () {
             $('#show_table').DataTable({
+                scrollX: "100%",
                 scrollY: '47vh',
                 scrollCollapse: true,
+                responsive: true,
                 paging:false,
                 order: [[6, 'desc']],
             });
         } );
-    </script>
+</script>
 
-<table id="show_table" class="table table-hover table-sm">
+<table id="show_table" class="table table-hover table-sm" style="width: 100%;">
                 <thead>
                     {% for x in header %}
+
                     <th class="table-dark">{{ x }}</th>
+
                     {% endfor %}
                 </thead>
                 <tbody>
@@ -34,9 +38,9 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a class="btn btn-success" href="add/">Add single show</a>
-            <a class="btn btn-primary" href="add_txt/">Add shows as .txt-file</a>
-            <a class="btn btn-danger" href="delete/">Delete shows</a>
+            <a class="btn btn-success" href="add/" style="margin-left: 20px; margin-top: 15px;">Add single show</a>
+            <a class="btn btn-primary" href="add_txt/" style="margin-left: 20px; margin-top: 15px;">Add shows as .txt-file</a>
+            <a class="btn btn-danger" href="delete/"style="margin-left: 20px; margin-top: 15px;">Delete shows</a>
 {% else %}
 <div style="margin:20px;">
 <p>You are not logged in</p>
