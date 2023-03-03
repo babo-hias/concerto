@@ -2,10 +2,9 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<div style="height: 300px; overflow-y: auto; margin-top:20px;">
+<div style="height: 300px; overflow-y: auto; margin-top:20px; margin-right: 20px;">
     <div style="height: 3000px;">
             <canvas id="location_chart" height="1500"></canvas>
-
     <script>
   const labels = [{% for item in locations_labels %}"{{ item }}",{% endfor %}];
 
@@ -31,7 +30,6 @@
             y: {
                 ticks: { color: 'black', beginAtZero: true }
             }
-
         },
 
         plugins: {
