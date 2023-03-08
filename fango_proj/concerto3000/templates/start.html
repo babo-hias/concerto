@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<script>
+        $(document).ready( function () {
+            $('#artists_table').DataTable({
+                scrollX: "100%",
+                scrollY: '26vh',
+                scrollCollapse: true,
+                responsive: true,
+                paging:false,
+                info:false,
+                order: [[1, 'desc']],
+            });
+        } );
+
+        $(document).ready( function () {
+            $('#locations_table').DataTable({
+                scrollX: "100%",
+                scrollY: '26vh',
+                scrollCollapse: true,
+                responsive: true,
+                paging:false,
+                info:false,
+                order: [[1, 'desc']],
+            });
+        } );
+</script>
+
+
+<table id="artists_table" class="table table-hover table-sm fw-light" style="width: 100%;">
+    <thead>
+        <th class="table-dark">Artist</th>
+        <th class="table-dark">#</th>
+    </thead>
+    <tbody>
+        {% for index, row in artists.iterrows %}
+            <tr class="table-light">
+                {% for cell in row %}
+                    <td>
+                        {{cell}}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
+
+<div style="margin-bottom: 20px;"></div>
+
+<table id="locations_table" class="table table-hover table-sm fw-light" style="width: 100%;">
+    <thead>
+        <th class="table-dark">Location</th>
+        <th class="table-dark">#</th>
+    </thead>
+    <tbody>
+        {% for index, row in locations.iterrows %}
+            <tr class="table-light">
+                {% for cell in row %}
+                    <td>
+                        {{cell}}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
+
+<!--
+<div>
+    <h3>
+        Artists
+    </h3>
+    <table class="table table-hover table-sm fw-light" style="width: 100%;">
+        <tbody>
+            <tr class="table-light">
+                <td>{{ artist_1 }}</td>
+                <td>{{ artist_1_nr }}</td>
+            </tr>
+            <tr class="table-light">
+                <td>{{ artist_2 }}</td>
+                <td>{{ artist_2_nr }}</td>
+            </tr>
+            <tr class="table-light">
+                <td>{{ artist_3 }}</td>
+                <td>{{ artist_3_nr }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h3>
+        Locations
+    </h3>
+    <table class="table table-hover table-sm fw-light" style="width: 100%;">
+        <tbody>
+            <tr class="table-light">
+                <td>{{ location_1 }}</td>
+                <td>{{ location_1_nr }}</td>
+            </tr>
+            <tr class="table-light">
+                <td>{{ location_2 }}</td>
+                <td>{{ location_2_nr }}</td>
+            </tr>
+            <tr class="table-light">
+                <td>{{ location_3 }}</td>
+                <td>{{ location_3_nr }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+-->
+
+{% else %}
+<div style="margin:20px;">
+<p>You are not logged in</p>
+  <a class="btn btn-success" href="{% url 'login' %}">Log In</a>
+</div>
+
+{% endif %}
+
+{% endblock %}

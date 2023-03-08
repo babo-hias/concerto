@@ -14,6 +14,31 @@ def index(request):
   return render(request, 'index.html')
 
 
+def start(request):
+  shows = Show.objects.all().values()
+
+  df_artists = pd.DataFrame(list(shows))
+  df_artists = df_artists.groupby(['artist']).count().reset_index()
+  df_artists = df_artists[['artist', 'id']].sort_values(by=['id'], ascending=False)
+
+  df_locations = pd.DataFrame(list(shows))
+  df_locations = df_locations.loc[df_locations['location'] != 'Festival']
+  df_locations = df_locations.groupby(['location']).count().reset_index()
+  df_locations = df_locations[['location', 'id']].sort_values(by=['id'], ascending=False)
+  df_locations.rename(columns={'location': 'Location', 'id': '#'}, inplace=True)
+
+  template = loader.get_template('start.html')
+  context = {
+    'artists': df_artists,
+    'locations': df_locations,
+    'header': ['Künstler', '#']
+  }
+  return HttpResponse(template.render(context, request))
+
+
+
+
+
 def table(request):
   shows = Show.objects.all().values()
 
